@@ -44,14 +44,20 @@ class LinearClassifier(object):
       # TODO:                                                                 #
       # Sample batch_size elements from the training data and their           #
       # corresponding labels to use in this round of gradient descent.        #
+      # 从训练数据集中抽取batch_size个样本元素和他们的对应的标签，用作该次梯度下降，     #
       # Store the data in X_batch and their corresponding labels in           #
       # y_batch; after sampling X_batch should have shape (dim, batch_size)   #
       # and y_batch should have shape (batch_size,)                           #
+      # 抽取的样本对应存储在X_batch和y_batch中                                    #
       #                                                                       #
       # Hint: Use np.random.choice to generate indices. Sampling with         #
       # replacement is faster than sampling without replacement.              #
+      # 用np.random.choice产生索引目录，覆盖式取样比不取代取样更快                   #
       #########################################################################
-      pass
+      mask = np.random.choice(X.shape[0],batch_size,replace=True)
+      X_batch = X[mask]
+      y_batch = y[mask]
+      # print(X_batch.shape,y_batch.shape)
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -65,7 +71,7 @@ class LinearClassifier(object):
       # TODO:                                                                 #
       # Update the weights using the gradient and the learning rate.          #
       #########################################################################
-      pass
+      self.W -= learning_rate*grad
       #########################################################################
       #                       END OF YOUR CODE                                #
       #########################################################################
@@ -94,7 +100,8 @@ class LinearClassifier(object):
     # TODO:                                                                   #
     # Implement this method. Store the predicted labels in y_pred.            #
     ###########################################################################
-    pass
+    scores = np.dot(X,self.W)
+    y_pred = np.argmax(scores,axis=1)
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
